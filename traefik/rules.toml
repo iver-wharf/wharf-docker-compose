@@ -1,0 +1,60 @@
+# rules
+[backends]
+  [backends.web]
+    [backends.web.servers.server1]
+    url = "http://web:8080"
+    weight = 10
+  [backends.api]
+    [backends.api.servers.server1]
+    url = "http://api:8080"
+    weight = 10
+  [backends.provider-gitlab]
+    [backends.provider-gitlab.servers.server1]
+    url = "http://provider-gitlab:8080"
+    weight = 10
+  [backends.provider-github]
+    [backends.provider-github.servers.server1]
+    url = "http://provider-github:8080"
+    weight = 10
+  [backends.provider-azuredevops]
+    [backends.provider-azuredevops.servers.server1]
+    url = "http://provider-azuredevops:8080"
+    weight = 10
+
+[frontends]
+  [frontends.web]
+  entryPoints = ["http"]
+  backend = "web"
+  passHostHeader = true
+  [frontends.web.routes]
+    [frontends.web.routes.route0]
+    rule = "PathPrefix:/"
+  [frontends.api]
+  entryPoints = ["http"]
+  backend = "api"
+  passHostHeader = true
+  [frontends.api.routes]
+    [frontends.api.routes.route0]
+    rule = "PathPrefix:/api/"
+  [frontends.provider-gitlab]
+  entryPoints = ["http"]
+  backend = "provider-gitlab"
+  passHostHeader = true
+  [frontends.provider-gitlab.routes]
+    [frontends.provider-gitlab.routes.route0]
+    rule = "PathPrefix:/import/gitlab"
+  [frontends.provider-github]
+  entryPoints = ["http"]
+  backend = "provider-github"
+  passHostHeader = true
+  [frontends.provider-github.routes]
+    [frontends.provider-github.routes.route0]
+    rule = "PathPrefix:/import/github"
+  [frontends.provider-azuredevops]
+  entryPoints = ["http"]
+  backend = "provider-azuredevops"
+  passHostHeader = true
+  [frontends.provider-azuredevops.routes]
+    [frontends.provider-azuredevops.routes.route0]
+    rule = "PathPrefix:/import/azuredevops"
+	

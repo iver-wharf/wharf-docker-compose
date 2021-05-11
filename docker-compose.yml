@@ -10,7 +10,10 @@ services:
 #  web:
 #    build: wharf-web
   api:
-    build: wharf-api
+    build:
+      context: wharf-api
+      args:
+        WHARF_API_VERSION: local docker-compose
     ports:
     - "5001:8080"
     environment:
@@ -32,21 +35,30 @@ services:
     - ALLOW_CORS=YES
     - WHARF_INSTANCE=local
   provider-gitlab:
-    build: wharf-provider-gitlab
+    build:
+      context: wharf-provider-gitlab
+      args:
+        WHARF_GITLAB_VERSION: local docker-compose
     ports:
     - "5002:8080"
     environment:
     - WHARF_API_URL=http://api:8080
     - ALLOW_CORS=YES
   provider-github:
-    build: wharf-provider-github
+    build:
+      context: wharf-provider-github
+      args:
+        WHARF_GITHUB_VERSION: local docker-compose
     ports:
     - "5003:8080"
     environment:
     - WHARF_API_URL=http://api:8080
     - ALLOW_CORS=YES
   provider-azuredevops:
-    build: wharf-provider-azuredevops
+    build:
+      context: wharf-provider-azuredevops
+      args:
+        WHARF_AZUREDEVOPS_VERSION: local docker-compose
     ports:
     - "5004:8080"
     environment:

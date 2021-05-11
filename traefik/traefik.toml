@@ -1,0 +1,17 @@
+# traefik.toml
+logLevel = "WARNING"
+defaultEntryPoints = ["http"]
+[entryPoints]
+  [entryPoints.http]
+  address = ":8081"
+
+[accessLog]
+  filePath = "/var/log/traefik-access.log"
+  format = "json"
+
+[api]
+  dashboard = true
+
+[file]
+  filename = "/etc/traefik/rules.toml"
+  watch = true

@@ -1,6 +1,6 @@
 # Wharf via Docker Compose
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7d9935f02bbb4aa38c76cd3bce7290af)](https://www.codacy.com/gh/iver-wharf/wharf-docker-compose/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=iver-wharf/wharf-docker-compose&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/7d9935f02bbb4aa38c76cd3bce7290af)](https://www.codacy.com/gh/iver-wharf/wharf-docker-compose/dashboard?utm_source=github.com\&utm_medium=referral\&utm_content=iver-wharf/wharf-docker-compose\&utm_campaign=Badge_Grade)
 
 Run Wharf locally on your own machine using [Docker Compose](https://docs.docker.com/compose/)
 

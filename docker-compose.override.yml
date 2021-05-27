@@ -1,0 +1,26 @@
+version: '3'
+services:
+  # Comment this out to disable web service, such as if you want to build it
+  # and run it locally via `npm start` instead
+  #web:
+  #  build: wharf-web
+  api:
+    build:
+      context: wharf-api
+      args:
+        BUILD_VERSION: local docker-compose
+  provider-gitlab:
+    build:
+      context: wharf-provider-gitlab
+      args:
+        BUILD_VERSION: local docker-compose
+  provider-github:
+    build:
+      context: wharf-provider-github
+      args:
+        BUILD_VERSION: local docker-compose
+  provider-azuredevops:
+    build:
+      context: wharf-provider-azuredevops
+      args:
+        BUILD_VERSION: local docker-compose

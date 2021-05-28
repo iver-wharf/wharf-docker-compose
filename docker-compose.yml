@@ -6,9 +6,9 @@ services:
     - "5000:8081"
     volumes:
     - ./wharf-docker-compose/traefik:/etc/traefik # Traefik configuration file
-## Uncomment to also host web via docker-compose
-#  web:
-#    build: wharf-web
+  # Uncomment to also host web via docker-compose
+  web:
+    image: quay.io/iver-wharf/wharf-web
   api:
     image: quay.io/iver-wharf/wharf-api
     ports:

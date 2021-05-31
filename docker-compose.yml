@@ -13,7 +13,7 @@ services:
     build:
       context: wharf-api
       args:
-        WHARF_API_VERSION: local docker-compose
+        BUILD_VERSION: local docker-compose
     ports:
     - "5001:8080"
     environment:
@@ -38,7 +38,7 @@ services:
     build:
       context: wharf-provider-gitlab
       args:
-        WHARF_GITLAB_VERSION: local docker-compose
+        BUILD_VERSION: local docker-compose
     ports:
     - "5002:8080"
     environment:
@@ -48,7 +48,7 @@ services:
     build:
       context: wharf-provider-github
       args:
-        WHARF_GITHUB_VERSION: local docker-compose
+        BUILD_VERSION: local docker-compose
     ports:
     - "5003:8080"
     environment:
@@ -58,7 +58,7 @@ services:
     build:
       context: wharf-provider-azuredevops
       args:
-        WHARF_AZUREDEVOPS_VERSION: local docker-compose
+        BUILD_VERSION: local docker-compose
     ports:
     - "5004:8080"
     environment:

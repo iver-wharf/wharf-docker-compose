@@ -10,6 +10,7 @@ services:
   ## the other services though.
   #web:
   #  build: wharf-web
+
   api:
     build:
       context: wharf-api

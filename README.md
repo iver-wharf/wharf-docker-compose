@@ -5,7 +5,7 @@
 Run Wharf locally on your own machine using [Docker Compose](https://docs.docker.com/compose/)
 
 ```console
-$ docker-compose -f docker-compose.yml pull
+$ docker-compose pull
 Pulling proxy                ... done
 Pulling api                  ... done
 Pulling provider-gitlab      ... done
@@ -13,7 +13,7 @@ Pulling provider-github      ... done
 Pulling provider-azuredevops ... done
 Pulling db                   ... done
 
-$ docker-compose -f docker-compose.yml up --abort-on-container-exit
+$ docker-compose up --abort-on-container-exit
 Creating network "wharf_default" with the default driver
 Creating wharf_provider-gitlab_1      ... done
 Creating wharf_provider-azuredevops_1 ... done
@@ -24,17 +24,13 @@ Creating wharf_provider-github_1      ... done
 Attaching to wharf_provider-gitlab_1, wharf_provider-github_1, wharf_provider-azuredevops_1, wharf_db_1, wharf_api_1, wharf_proxy_1
 ```
 
-The `-f docker-compose.yml` flag is necessary as the
-`docker-compose.override.yml`, that's loaded in by default if no files are
-specified with `-f`, contains instructions on building Wharf from source.
-
 ## Building from source
 
 For documentation on how to set this up for development purposes, please visit
 <https://iver-wharf.github.io/#/development/getting-started>
 
 The gist is that you need to clone the other Git repositories next to this
-repository, then link the `docker-compose.yml` and `docker-compose.override.yml`
+repository, then link the `docker-compose.yml` and `docker-compose.build.yml`
 files, and then run `docker-compose build`.
 
 ```console
@@ -51,8 +47,18 @@ wharf-web
 $ ln -sfv wharf-docker-compose/docker-compose.yml docker-compose.yml
 'docker-compose.yml' -> 'wharf-docker-compose/docker-compose.yml'
 
-$ ln -sfv wharf-docker-compose/docker-compose.override.yml docker-compose.override.yml
-'docker-compose.override.yml' -> 'wharf-docker-compose/docker-compose.override.yml'
+$ ln -sfv wharf-docker-compose/docker-compose.build.yml docker-compose.override.yml
+'docker-compose.override.yml' -> 'wharf-docker-compose/docker-compose.build.yml'
+
+$ ls -1
+wharf-api
+wharf-docker-compose
+wharf-provider-azuredevops
+wharf-provider-github
+wharf-provider-gitlab
+wharf-web
+docker-compose.yml
+docker-compose.override.yml
 
 $ docker-compose build
 Building api
@@ -77,6 +83,12 @@ Creating wharf_proxy_1                ... done
 Creating wharf_provider-github_1      ... done
 Attaching to wharf_provider-gitlab_1, wharf_provider-github_1, wharf_provider-azuredevops_1, wharf_db_1, wharf_api_1, wharf_proxy_1
 ```
+
+Docker Compose will automatically read from the file if it is named
+`docker-compose.override.yml`, but it ignores `docker-compose.build.yml` by
+default. This is why we're linking like so, effectively renaming it:
+
+- `docker-compose.override.yml` &rarr; `wharf-docker-compose/docker-compose.build.yml`
 
 ## Linting markdown
 

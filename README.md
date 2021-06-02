@@ -4,8 +4,91 @@
 
 Run Wharf locally on your own machine using [Docker Compose](https://docs.docker.com/compose/)
 
-For documentation on how to set this up, please visit
+```console
+$ docker-compose pull
+Pulling proxy                ... done
+Pulling api                  ... done
+Pulling provider-gitlab      ... done
+Pulling provider-github      ... done
+Pulling provider-azuredevops ... done
+Pulling db                   ... done
+
+$ docker-compose up --abort-on-container-exit
+Creating network "wharf_default" with the default driver
+Creating wharf_provider-gitlab_1      ... done
+Creating wharf_provider-azuredevops_1 ... done
+Creating wharf_api_1                  ... done
+Creating wharf_db_1                   ... done
+Creating wharf_proxy_1                ... done
+Creating wharf_provider-github_1      ... done
+Attaching to wharf_provider-gitlab_1, wharf_provider-github_1, wharf_provider-azuredevops_1, wharf_db_1, wharf_api_1, wharf_proxy_1
+```
+
+## Building from source
+
+For documentation on how to set this up for development purposes, please visit
 <https://iver-wharf.github.io/#/development/getting-started>
+
+The gist is that you need to clone the other Git repositories next to this
+repository, then link the `docker-compose.yml` and `docker-compose.build.yml`
+files, and then run `docker-compose build`.
+
+```console
+$ cd ..
+
+$ ls -1
+wharf-api
+wharf-docker-compose
+wharf-provider-azuredevops
+wharf-provider-github
+wharf-provider-gitlab
+wharf-web
+
+$ ln -sfv wharf-docker-compose/docker-compose.yml docker-compose.yml
+'docker-compose.yml' -> 'wharf-docker-compose/docker-compose.yml'
+
+$ ln -sfv wharf-docker-compose/docker-compose.build.yml docker-compose.override.yml
+'docker-compose.override.yml' -> 'wharf-docker-compose/docker-compose.build.yml'
+
+$ ls -1
+wharf-api
+wharf-docker-compose
+wharf-provider-azuredevops
+wharf-provider-github
+wharf-provider-gitlab
+wharf-web
+docker-compose.yml
+docker-compose.override.yml
+
+$ docker-compose build
+Building api
+STEP 1: FROM golang:1.16.3 AS build
+STEP 2: WORKDIR /src
+--> Using cache b9ae911f531d8d3ffbdb0c228a7c70de134177a9c30e5dcc5010e0af7d5e77be
+--> b9ae911f531
+STEP 3: RUN go get -u github.com/swaggo/swag/cmd/swag@v1.7.0
+--> Using cache 877cbea183468f7b01031df26efe1440c617855f2c46692292b1b8ec2501bd70
+--> 877cbea1834
+STEP 4: COPY go.mod go.sum /src/
+
+// ...a lot of build logs
+
+$ docker-compose up --abort-on-container-exit
+Creating network "wharf_default" with the default driver
+Creating wharf_provider-gitlab_1      ... done
+Creating wharf_provider-azuredevops_1 ... done
+Creating wharf_api_1                  ... done
+Creating wharf_db_1                   ... done
+Creating wharf_proxy_1                ... done
+Creating wharf_provider-github_1      ... done
+Attaching to wharf_provider-gitlab_1, wharf_provider-github_1, wharf_provider-azuredevops_1, wharf_db_1, wharf_api_1, wharf_proxy_1
+```
+
+Docker Compose will automatically read from the file if it is named
+`docker-compose.override.yml`, but it ignores `docker-compose.build.yml` by
+default. This is why we're linking like so, effectively renaming it:
+
+- `docker-compose.override.yml` &rarr; `wharf-docker-compose/docker-compose.build.yml`
 
 ## Linting markdown
 

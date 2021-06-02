@@ -1,0 +1,35 @@
+version: '3'
+services:
+  web:
+    ## "replicas: 0" disables wharf-web, which lets you run wharf-web locally
+    ## via `npm start` instead.
+    ##
+    ## Comment out "replicas: 0" and uncomment "build: wharf-web" to switch to
+    ## building even the web locally through Docker.
+    ##
+    ## Slight warning that it does take significantly more time to build than
+    ## the other services though.
+    deploy:
+      replicas: 0
+    #build: wharf-web
+
+  api:
+    build:
+      context: wharf-api
+      args:
+        BUILD_VERSION: local docker-compose
+  provider-gitlab:
+    build:
+      context: wharf-provider-gitlab
+      args:
+        BUILD_VERSION: local docker-compose
+  provider-github:
+    build:
+      context: wharf-provider-github
+      args:
+        BUILD_VERSION: local docker-compose
+  provider-azuredevops:
+    build:
+      context: wharf-provider-azuredevops
+      args:
+        BUILD_VERSION: local docker-compose

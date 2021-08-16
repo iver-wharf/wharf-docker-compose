@@ -55,11 +55,17 @@ services:
     image: postgres
     restart: always
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
     ports:
-      - 5432:5432
+    - 5432:5432
     volumes:
-      - ./api-postgresql-data:/var/lib/postgresql/data
+    - ./api-postgresql-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 ## Uncomment to enable RabbitMQ
 #  rabbitmq:
 #    image: "rabbitmq:3-management"

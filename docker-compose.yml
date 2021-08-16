@@ -1,4 +1,4 @@
-version: '3'
+#version: '3'
 services:
   proxy:
     image: traefik:1.7.10-alpine
@@ -30,6 +30,9 @@ services:
     - MOCK_LOCAL_CI_RESPONSE=true
     - ALLOW_CORS=YES
     - WHARF_INSTANCE=local
+    depends_on:
+      db:
+        condition: service_healthy
   provider-gitlab:
     image: quay.io/iver-wharf/wharf-provider-gitlab
     ports:

@@ -59,10 +59,12 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./api-postgresql-data:/var/lib/postgresql/data
+      - wharf-postgresql-volume:/var/lib/postgresql/data
 ## Uncomment to enable RabbitMQ
 #  rabbitmq:
 #    image: "rabbitmq:3-management"
 #    ports:
 #      - "5672:5672"
 #      - "15672:15672"
+volumes:
+  wharf-postgresql-volume:

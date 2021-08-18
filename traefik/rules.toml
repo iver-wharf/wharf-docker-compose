@@ -1,60 +1,28 @@
-# rules
-[backends]
-  [backends.web]
-    [backends.web.servers.server1]
+[http.services]
+  [[http.services.web.loadBalancer.servers]]
     url = "http://web:8080"
-    weight = 10
-  [backends.api]
-    [backends.api.servers.server1]
+  [[http.services.api.loadBalancer.servers]]
     url = "http://api:8080"
-    weight = 10
-  [backends.provider-gitlab]
-    [backends.provider-gitlab.servers.server1]
+  [[http.services.provider-gitlab.loadBalancer.servers]]
     url = "http://provider-gitlab:8080"
-    weight = 10
-  [backends.provider-github]
-    [backends.provider-github.servers.server1]
+  [[http.services.provider-github.loadBalancer.servers]]
     url = "http://provider-github:8080"
-    weight = 10
-  [backends.provider-azuredevops]
-    [backends.provider-azuredevops.servers.server1]
+  [[http.services.provider-azuredevops.loadBalancer.servers]]
     url = "http://provider-azuredevops:8080"
-    weight = 10
 
-[frontends]
-  [frontends.web]
-  entryPoints = ["http"]
-  backend = "web"
-  passHostHeader = true
-  [frontends.web.routes]
-    [frontends.web.routes.route0]
-    rule = "PathPrefix:/"
-  [frontends.api]
-  entryPoints = ["http"]
-  backend = "api"
-  passHostHeader = true
-  [frontends.api.routes]
-    [frontends.api.routes.route0]
-    rule = "PathPrefix:/api/"
-  [frontends.provider-gitlab]
-  entryPoints = ["http"]
-  backend = "provider-gitlab"
-  passHostHeader = true
-  [frontends.provider-gitlab.routes]
-    [frontends.provider-gitlab.routes.route0]
-    rule = "PathPrefix:/import/gitlab"
-  [frontends.provider-github]
-  entryPoints = ["http"]
-  backend = "provider-github"
-  passHostHeader = true
-  [frontends.provider-github.routes]
-    [frontends.provider-github.routes.route0]
-    rule = "PathPrefix:/import/github"
-  [frontends.provider-azuredevops]
-  entryPoints = ["http"]
-  backend = "provider-azuredevops"
-  passHostHeader = true
-  [frontends.provider-azuredevops.routes]
-    [frontends.provider-azuredevops.routes.route0]
-    rule = "PathPrefix:/import/azuredevops"
-	
+[http.routers]
+  [http.routers.web]
+    rule = "PathPrefix(`/`)"
+    service = "web"
+  [http.routers.api]
+    rule = "PathPrefix(`/api/`)"
+    service = "api"
+  [http.routers.provider-gitlab]
+    rule = "PathPrefix(`/import/gitlab`)"
+    service = "provider-gitlab"
+  [http.routers.provider-github]
+    rule = "PathPrefix(`/import/github`)"
+    service = "provider-github"
+  [http.routers.provider-azuredevops]
+    rule = "PathPrefix(`/import/azuredevops`)"
+    service = "provider-azuredevops"

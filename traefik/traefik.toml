@@ -1,17 +1,17 @@
-# traefik.toml
-logLevel = "WARNING"
-defaultEntryPoints = ["http"]
 [entryPoints]
   [entryPoints.http]
-  address = ":8081"
+    address = ":8081"
 
-[accessLog]
-  filePath = "/var/log/traefik-access.log"
-  format = "json"
+[providers]
+  [provider.docker]
+    defaultRule = "Host(`{{ trimPrefix `/` .Name }}.docker.localhost`)"
+  [providers.file]
+    watch = true
+    filename = "/etc/traefik/rules.toml"
 
 [api]
+  insecure = true
   dashboard = true
 
-[file]
-  filename = "/etc/traefik/rules.toml"
-  watch = true
+[log]
+  level = "WARNING"

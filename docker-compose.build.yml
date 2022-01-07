@@ -10,8 +10,8 @@ services:
     ## Slight warning that it does take significantly more time to build than
     ## the other services though.
     deploy:
-      replicas: 0
-    #build: wharf-web
+      replicas: 1
+    build: wharf-web
 
   api:
     build:

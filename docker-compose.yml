@@ -3,7 +3,7 @@ version: '3'
 x-env-generic-backend: &x-env-generic-backend
   TZ: Europe/Stockholm
   WHARF_API_URL: http://api:8080
-  WHARF_HTTP_CORS_ALLOWALLORIGINS: "YES"
+  WHARF_HTTP_CORS_ALLOWALLORIGINS: "true"
 
 services:
   proxy:
@@ -13,10 +13,8 @@ services:
     - "5000:8081"
     volumes:
     - ./wharf-docker-compose/traefik:/etc/traefik # Traefik configuration file
-#  web:
-#    image: w-web:1
-#    ports:
-#    - "8080:8080"
+  web:
+    image: quay.io/iver-wharf/wharf-web
   api:
     image: quay.io/iver-wharf/wharf-api
     tty: true

@@ -13,22 +13,15 @@ services:
     ports:
     - "5001:8080"
     environment:
-    - DBHOST=db
-    - DBUSER=postgres
-    - DBPASS=OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
-    - DBPORT=5432
-    - DBNAME=wharf
-    - DBLOG=true
-    - RABBITMQUSER=guest
-    - RABBITMQPASS=guest
-    - RABBITMQHOST=rabbitmq
-    - RABBITMQPORT=5672
-    - RABBITMQVHOST=
-    - RABBITMQNAME=wharf_queue
-    - RABBITMQDISABLESSL=TRUE
-    - RABBITMQCONNATTEMPTS=10
+    - WHARF_DB_DRIVER=postgres
+    - WHARF_DB_NAME=wharf
+    - WHARF_DB_HOST=DB
+    - WHARF_DB_USERNAME=postgres
+    - WHARF_DB_PASSWORD=OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
+    - WHARF_DB_PORT=5432
+    - WHARF_DB_LOG=true
+    - WHARF_HTTP_OIDC_ENABLE=0
     - MOCK_LOCAL_CI_RESPONSE=true
-    - ALLOW_CORS=YES
     - WHARF_INSTANCE=local
     depends_on:
       db:
@@ -69,9 +62,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
-## Uncomment to enable RabbitMQ
-#  rabbitmq:
-#    image: "rabbitmq:3-management"
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"

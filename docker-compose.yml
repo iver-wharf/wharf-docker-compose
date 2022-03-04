@@ -3,7 +3,7 @@ version: '3'
 x-env-generic-backend: &x-env-generic-backend
   TZ: Europe/Stockholm
   WHARF_API_URL: http://api:8080
-  ALLOW_CORS: "YES"
+  WHARF_HTTP_CORS_ALLOWALLORIGINS: "true"
 
 services:
   proxy:
@@ -22,20 +22,13 @@ services:
     - "5001:8080"
     environment:
       <<: *x-env-generic-backend
-      DBHOST: db
-      DBUSER: postgres
-      DBPASS: OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
-      DBPORT: 5432
-      DBNAME: wharf
-      DBLOG: "true"
-      RABBITMQUSER: guest
-      RABBITMQPASS: guest
-      RABBITMQHOST: rabbitmq
-      RABBITMQPORT: 5672
-      RABBITMQVHOST:
-      RABBITMQNAME: wharf_queue
-      RABBITMQDISABLESSL: "true"
-      RABBITMQCONNATTEMPTS: 10
+      WHARF_DB_DRIVER: postgres
+      WHARF_DB_HOST: db
+      WHARF_DB_PORT: 5432
+      WHARF_DB_USERNAME: postgres
+      WHARF_DB_PASSWORD: OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
+      WHARF_DB_NAME: wharf
+      WHARF_DB_LOG: "true"
       MOCK_LOCAL_CI_RESPONSE: "true"
       WHARF_INSTANCE: local
   provider-gitlab:
@@ -69,11 +62,5 @@ services:
       - "5432:5432"
     volumes:
       - wharf-postgresql-volume:/var/lib/postgresql/data
-## Uncomment to enable RabbitMQ
-#  rabbitmq:
-#    image: "rabbitmq:3-management"
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
 volumes:
   wharf-postgresql-volume:

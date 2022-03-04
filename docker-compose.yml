@@ -22,13 +22,13 @@ services:
     - "5001:8080"
     environment:
       <<: *x-env-generic-backend
-      WHARF_HTTP_DB_DRIVER: postgres
-      WHARF_HTTP_DB_HOST: db
-      WHARF_HTTP_DB_PORT: 5432
-      WHARF_HTTP_DB_USERNAME: postgres
-      WHARF_HTTP_DB_PASSWORD: OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
-      WHARF_HTTP_DB_NAME: wharf
-      WHARF_HTTP_DB_LOG: "true"
+      WHARF_DB_DRIVER: postgres
+      WHARF_DB_HOST: db
+      WHARF_DB_PORT: 5432
+      WHARF_DB_USERNAME: postgres
+      WHARF_DB_PASSWORD: OL2AEn6lgj6ekajgKJIOanefgegnksngpoetPIEQjhankf7412
+      WHARF_DB_NAME: wharf
+      WHARF_DB_LOG: "true"
       MOCK_LOCAL_CI_RESPONSE: "true"
       WHARF_INSTANCE: local
   provider-gitlab:
